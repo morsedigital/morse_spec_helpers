@@ -7,7 +7,7 @@ module MorseSpecHelpers
     exists(method)
     it "should default to false" do
       new_thing=@instance.class.new
-      expect(new_thing.send(method)).to be_false
+      expect(new_thing.send(method)).to be_falsey
     end
   end
 
@@ -15,7 +15,7 @@ module MorseSpecHelpers
     exists(method)
     it "should default to true" do
       new_thing=@instance.class.new
-      expect(new_thing.send(method)).to be_true
+      expect(new_thing.send(method)).to be_truthy
     end
   end
 
@@ -37,7 +37,7 @@ module MorseSpecHelpers
     context "#{method}" do
       exists(method)
       it "should be an Array" do
-        expect(@instance.send(method).is_a?(Array)).to be_true
+        expect(@instance.send(method).is_a?(Array)).to be_truthy
       end
     end
   end
@@ -95,7 +95,7 @@ module MorseSpecHelpers
     context "#{method}" do
       exists(method)
       it "should be an ActiveRecord::Relation" do
-        expect(@instance.send(method).is_a?(ActiveRecord::Relation)).to be_true
+        expect(@instance.send(method).is_a?(ActiveRecord::Relation)).to be_truthy
       end
     end
   end
@@ -398,7 +398,7 @@ module MorseSpecHelpers
               expect(@instance.send(method)).to be_nil
               @instance.send("#{method}_attachment_title=",nil)
               @instance.send("#{method}_attachment=",fixture_file_upload("../support/images/placeholder.png", 'image/png'))
-              expect(@instance.valid?).to_not be_true
+              expect(@instance.valid?).to_not be_truthy
               expect(@instance.errors[method]).to_not be_empty
               expect(@instance.send(method)).to be_nil
             end
@@ -411,7 +411,7 @@ module MorseSpecHelpers
   def processes_multiple_attachments_to_attribute(method)
     describe "#{method} processing" do
       it "should respond to #{method}" do
-        expect(@instance.respond_to?(method)).to be_true
+        expect(@instance.respond_to?(method)).to be_truthy
       end
       describe "accessors" do
         %w{attachment attachment_title attachment_alt attachment_remove}.each do |suffix|
@@ -438,7 +438,7 @@ module MorseSpecHelpers
               expect(@instance.send(method)).to be_empty
               @instance.send("#{method.to_s.singularize}_attachment_alt=",nil)
               @instance.send("#{method.to_s.singularize}_attachment=",fixture_file_upload("../support/images/placeholder.png", 'image/png'))
-              expect(@instance.valid?).to_not be_true
+              expect(@instance.valid?).to_not be_truthy
               expect(@instance.errors[method]).to_not be_empty
               expect(@instance.send(method)).to be_empty
             end
