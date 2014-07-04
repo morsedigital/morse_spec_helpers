@@ -1,5 +1,5 @@
 require "morse_spec_helpers/version"
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f } if is_defined?(Rails.root)
 
 module MorseSpecHelpers
 
