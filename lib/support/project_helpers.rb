@@ -1,12 +1,6 @@
 def setup_factories
-  #Commenting out the dynamic bit, as it's too slow
-  #filenames=Dir.new("#{Rails.root}/app/models").entries.select{|e| e.match(/.rb$/)}
-  #modelnames=filenames.map{|fn| fn.gsub(/.rb$/,'').camelize.constantize}
-  modelnames=[
-    Offer,
-    Postcode,
-    Search
-  ]
+  filenames=Dir.new("#{Rails.root}/app/models").entries.select{|e| e.match(/.rb$/)}
+  modelnames=filenames.map{|fn| fn.gsub(/.rb$/,'').camelize.constantize}
   modelnames.each do |thing|
     string=thing.to_s.underscore
     symbol=string.to_sym
