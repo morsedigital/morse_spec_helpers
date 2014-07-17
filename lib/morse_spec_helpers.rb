@@ -346,6 +346,21 @@ module MorseSpecHelpers
     end
   end
 
+  def optional_integer(method)
+    context "#{method} is an optional integer" do
+      exists(method)
+      it "should make a blank #{method} nil" do
+        @instance.send("#{method}=","")
+        expect(@instance).to be_valid
+        expect(@instance.send(method)).to be_nil
+      end
+      it "should accept a normal integer for #{method}" do
+        @instance.send("#{method}=",1)
+        expect(@instance).to be_valid
+      end
+    end
+  end
+
   def optional_time(method)
     context "#{method} is an optional time" do
       exists(method)
