@@ -91,6 +91,34 @@ module MorseSpecHelpers
     end
   end
 
+  def mandatory_float(method)
+    context "#{method} is a mandatory float" do
+      it "should reject a blank #{method}" do
+        @instance.send("#{method}=","")
+        expect(@instance).not_to be_valid
+      end
+      it "should accept a normal float for #{method}" do
+        @instance.send("#{method}=",1.1)
+        expect(@instance).to be_valid
+      end
+      mandatory_thing(method)
+    end
+  end
+
+  def mandatory_integer(method)
+    context "#{method} is a mandatory integer" do
+      it "should reject a blank #{method}" do
+        @instance.send("#{method}=","")
+        expect(@instance).not_to be_valid
+      end
+      it "should accept a normal integer for #{method}" do
+        @instance.send("#{method}=",1)
+        expect(@instance).to be_valid
+      end
+      mandatory_thing(method)
+    end
+  end
+
   def mandatory_relation(method)
     context "#{method}" do
       exists(method)
