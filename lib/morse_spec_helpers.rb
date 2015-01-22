@@ -529,9 +529,25 @@ module MorseSpecHelpers
       expect(@instance).to be_valid
     end
   end
+
   def should_not_be_valid
     it "should not be valid" do
       expect(@instance).to_not be_valid
     end
   end
+
+  def there_can_be_only_one(thing)
+    it "should allow only one #{thing}" do
+      model=@instance.class
+      model_for_factory_girl=model.to_s.underscore
+      thing1=FactoryGirl.create model_for_factory_girl, thing=>true
+      thing2=FactoryGirl.create model_for_factory_girl, thing=>false
+      thing2.update_attribute(thing,true)
+      thing2.save
+      thing1.reload
+      expect(thing1.send(thing)).to be_falsey
+      expect(thing2.send(thing)).to be_truthy
+    end
+  end
+
 end
