@@ -94,6 +94,28 @@ module MorseSpecHelpers
     end
   end
 
+  def mandatory_email(method)
+    context "#{method} is a mandatory email" do
+      it "should reject a blank #{method}" do
+        @instance.send("#{method}=","")
+        expect(@instance).not_to be_valid
+      end
+      it "should reject a badly formatted email for #{method}" do
+        @instance.send("#{method}=","test@test")
+        expect(@instance).to_not be_valid
+      end
+      it "should accept a properly formatted email for #{method}" do
+        @instance.send("#{method}=","test@test.com")
+        expect(@instance).to be_valid
+      end
+      it "should reject a normal string for #{method}" do
+        @instance.send("#{method}=","test")
+        expect(@instance).to_not be_valid
+      end
+      mandatory_thing(method)
+    end
+  end
+
   def mandatory_float(method)
     context "#{method} is a mandatory float" do
       it "should reject a blank #{method}" do
@@ -330,6 +352,28 @@ module MorseSpecHelpers
       it "should accept a normal datetime for #{method}" do
         @instance.send("#{method}=",Time.now)
         expect(@instance).to be_valid
+      end
+    end
+  end
+
+  def optional_email(method)
+    context "#{method} is an optional email" do
+      it "should make a blank #{method} nil" do
+        @instance.send("#{method}=","")
+        expect(@instance).to be_valid
+        expect(@instance.send(method)).to be_nil
+      end
+      it "should reject a badly formatted email for #{method}" do
+        @instance.send("#{method}=","test@test")
+        expect(@instance).to_not be_valid
+      end
+      it "should accept a properly formatted email for #{method}" do
+        @instance.send("#{method}=","test@test.com")
+        expect(@instance).to be_valid
+      end
+      it "should reject a normal string for #{method}" do
+        @instance.send("#{method}=","test")
+        expect(@instance).to_not be_valid
       end
     end
   end
