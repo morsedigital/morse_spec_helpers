@@ -594,4 +594,16 @@ module MorseSpecHelpers
     end
   end
 
+  def view_allow(thing)
+    if thing.is_a?(Array) || thing.is_a?(ActiveRecord::Relation)
+      allow(view).to receive(thing.first.class.name.underscore.pluralize.to_sym).and_return(thing)
+    else
+      allow(view).to receive(thing.class.name.underscore.to_sym).and_return(thing)
+    end
+  end
+
+  def view_allow_simple_form_for(thing, f=:f)
+    form=SimpleForm::FormBuilder.new(thing.class, thing, self, {})
+    allow(view).to receive(f).and_return(form)
+  end
 end
