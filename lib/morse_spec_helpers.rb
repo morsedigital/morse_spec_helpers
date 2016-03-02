@@ -80,19 +80,19 @@ module MorseSpecHelpers
     end
   end
 
-  def mandatory_date_or_default(thing, default)
-    describe "thing" do
+  def mandatory_date_or_default(method, default)
+    describe "#{method} is a mandatory date that defaults to a value" do
       context "where it is present" do
         it "should be valid" do
-          allow(@instance).to receive(thing).and_return(Date.today)
+          allow(@instance).to receive(method).and_return(Date.today)
           expect(@instance).to be_valid
         end
       end
       context "where it is not present" do
-        it "should be valid" do
-          @instance.send("{thing}=", nil)
+        it "should set to the default" do
+          @instance.send("#{method}=", nil)
           expect(@instance).to be_valid
-          expect(@instance.send(thing)).to eq(default) 
+          expect(@instance.send(method)).to eq(default) 
         end
       end
     end
