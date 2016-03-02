@@ -80,6 +80,24 @@ module MorseSpecHelpers
     end
   end
 
+  def mandatory_date_or_default(thing, default)
+    describe "thing" do
+      context "where it is present" do
+        it "should be valid" do
+          allow(@instance).to receive(thing).and_return(Date.today)
+          expect(@instance).to be_valid
+        end
+      end
+      context "where it is not present" do
+        it "should be valid" do
+          @instance.send("{thing}=", nil)
+          expect(@instance).to be_valid
+          expect(@instance.send(thing)).to eq(default) 
+        end
+      end
+    end
+  end
+
   def mandatory_datetime(method,time=nil)
     context "#{method} is a mandatory datetime" do
       it "should reject a blank #{method}" do
