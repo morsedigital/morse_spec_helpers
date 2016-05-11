@@ -6,6 +6,22 @@ end
 
 module MorseSpecHelpers
 
+  def acts_as_a_list
+    describe 'acts_as_list' do
+      describe 'given a blank position on save' do
+        before do
+          @instance.should be_valid
+          setup_variables('position')
+        end
+        it 'should add itself to the list' do
+          @instance.position = nil
+          @instance.save
+          @instance.position.should_not be_nil
+        end
+      end
+    end
+  end
+
   def boolean_default_false(method)
     exists(method)
     it "should default to false" do
