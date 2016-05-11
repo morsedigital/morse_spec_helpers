@@ -9,10 +9,6 @@ module MorseSpecHelpers
   def acts_as_a_list
     describe 'acts_as_list' do
       describe 'given a blank position on save' do
-        before do
-          @instance.should be_valid
-          setup_variables('position')
-        end
         it 'should add itself to the list' do
           @instance.position = nil
           @instance.save
