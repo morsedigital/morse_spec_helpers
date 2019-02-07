@@ -104,7 +104,7 @@ module MorseSpecHelpers
         it "should set to the default" do
           @instance.send("#{method}=", nil)
           expect(@instance).to be_valid
-          expect(@instance.send(method)).to eq(default) 
+          expect(@instance.send(method)).to eq(default)
         end
       end
     end
@@ -576,7 +576,7 @@ module MorseSpecHelpers
 
   def returns_200
     it "returns http success" do
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
