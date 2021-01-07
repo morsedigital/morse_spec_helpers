@@ -632,8 +632,12 @@ module MorseSpecHelpers
     end
   end
 
+  def view_allow_variable(variable_name, value = '')
+    allow(view).to receive(variable_name).and_return value
+  end
+
   def view_allow_simple_form_for(thing, f=:f)
-    form=SimpleForm::FormBuilder.new(thing.class, thing, self, {})
+    form=SimpleForm::FormBuilder.new(thing.class.name, thing, self, {})
     allow(view).to receive(f).and_return(form)
   end
 end
